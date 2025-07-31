@@ -2,7 +2,7 @@ __title__ = "discord.ext.track_edits"
 __author__ = "beerpsi"
 __license__ = "MIT"
 __copyright__ = "Copyright 2025-present beerpsi"
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 from typing import Literal, NamedTuple
 
@@ -21,7 +21,7 @@ class VersionInfo(NamedTuple):
 
 
 version_info: VersionInfo = VersionInfo(
-    major=0, minor=1, micro=1, releaselevel="final", serial=0
+    major=0, minor=1, micro=2, releaselevel="final", serial=0
 )
 
 del NamedTuple, Literal, VersionInfo

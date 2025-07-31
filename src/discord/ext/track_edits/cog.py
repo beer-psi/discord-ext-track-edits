@@ -83,12 +83,20 @@ class EditTrackerCog(commands.Cog, Generic[BotT]):
         if (max_duration := self.max_duration) is None:
             return
 
+        _logger.debug("purging edit tracker cache")
+
         async with self._lock.write():
-            for k, v in self._cache.items():
-                last_updated = v.user_message.edited_at or v.user_message.created_at
+            # create a shallow copy of the current cache so we can safely delete
+            # items from the actual cache, since modifying a collection while
+            # iterating through it in Python gives a RuntimeError
+            for user_message_id, invocation in self._cache.copy().items():
+                last_updated = (
+                    invocation.user_message.edited_at
+                    or invocation.user_message.created_at
+                )
 
                 if datetime.now(timezone.utc) - last_updated > max_duration:
-                    del self._cache[k]
+                    del self._cache[user_message_id]
 
     @commands.Cog.listener()
     async def on_raw_message_edit(self, payload: discord.RawMessageUpdateEvent):
@@ -108,7 +116,7 @@ class EditTrackerCog(commands.Cog, Generic[BotT]):
                 invocation.user_message = payload.message
             elif (
                 # ignore untracked edits if we have not responded to them,
-                # if the original message is too old (to prevent abuse),
+                # or if the original message is too old (to prevent abuse),
                 # or if we don't want to execute untracked edits at all
                 self.ignore_edits_if_not_yet_responded
                 or (
