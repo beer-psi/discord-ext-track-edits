@@ -40,8 +40,7 @@ bot = Bot(command_prefix="!", intents=intents)
 @bot.command()
 async def add(ctx: commands.Context[Bot], left: int, right: int):
     """Adds two numbers together."""
-
-    if random.random() < 0.5:
+    if random.random() < 0.5:  # noqa: S311
         _ = await ctx.reply(str(left + right), mention_author=False)
     else:
         _ = await ctx.reply(
