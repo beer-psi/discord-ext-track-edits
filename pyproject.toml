@@ -1,10 +1,18 @@
+[build-system]
+requires = ["uv_build>=0.8.3,<0.9.0"]
+build-backend = "uv_build"
+
 [project]
 name = "discord-ext-track-edits"
 version = "0.1.0"
+dependencies = ["discord-py>=2.5.2", "typing-extensions>=4.13.2"]
+requires-python = ">=3.8"
+authors = [{ name = "beerpsi", email = "beerpsi@duck.com" }]
 description = "A discord.py extension for automatic edit tracking"
 readme = "README.md"
-requires-python = ">=3.8"
-dependencies = ["discord-py>=2.5.2", "typing-extensions>=4.13.2"]
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["discord", "edit tracking", "extension", "discord-ext"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -19,12 +27,13 @@ classifiers = [
     "Typing :: Typed",
 ]
 
-[build-system]
-requires = ["uv_build>=0.8.3,<0.9.0"]
-build-backend = "uv_build"
-
 [dependency-groups]
 dev = ["basedpyright>=1.31.0", "ruff>=0.12.7"]
+
+[project.urls]
+Homepage = "https://github.com/beer-psi/discord-ext-track-edits"
+Repository = "https://github.com/beer-psi/discord-ext-track-edits.git"
+Issues = "https://github.com/beer-psi/discord-ext-track-edits/issues"
 
 [tool.uv.build-backend]
 module-name = "discord.ext.track_edits"
